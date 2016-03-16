@@ -1,0 +1,136 @@
+
+body{
+    background-color: #272822;
+    color: #CCCCCC;
+}
+
+ul{
+    list-style: none;
+    padding-left: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+#topbar{
+    position: relative;
+    padding: 8px;
+    background-color: #141411;
+}
+
+#logo{
+    display: inline-block;
+    margin-left: 12px;
+    font-weight: 800;
+    color: cccccc;
+}
+
+#nav{
+    display: inline-block;
+    font-size: 14px;
+    margin-left: 30px;
+    color: bbbbbb;
+}
+
+#nav li{
+    display: inline-block;
+    margin-right: 10px;
+}
+
+#content{
+    display: flex;
+    vertical-align: top;
+    position: relative;
+    top: 0px;
+}
+
+#lectures-wrapper{
+    vertical-align: top;
+    font-size: 12px;
+    flex-shrink: 1;
+}
+
+#lectures{
+    padding-top: 8px;
+    color: #aaaaaa;
+}
+
+#lectures:hover span.lecture-title{
+    display: inline;
+}
+
+#lectures span.lecture-title{
+    display: none;
+}
+
+#lectures li{
+    cursor: pointer;
+    padding: 7px 10px;
+}
+
+#lectures li:hover{
+    background-color: #595959;
+}
+
+#lectures li.active{
+    background-color: #595959;
+    color: dddddd;
+}
+
+.tabs{
+    padding-top: 5px;
+    font-size: 13px;
+    color: #bbbbbb;
+}
+
+.tabs .tab{
+    display:inline-block;
+    padding: 5px 12px;
+    min-width: 150px;
+    background-color: #333333;
+    border-radius: 5px 5px 0px 0px;
+}
+
+#editor-wrapper{
+    flex: 2;
+    vertical-align: top;
+}
+
+#editor-run{
+    background-color: #666666;
+    padding: 3px 10px;
+    border: 0px;
+}
+
+#editor {
+    position: relative;
+    width: 100%;
+    height: 600px;
+    font-size: 16px;
+    border-right: 1px solid #333333;
+}
+
+#output{
+    height: 200px;
+    overflow-y: scroll;
+}
+
+#slide-wrapper{
+    flex: 2;
+    width: 46%;
+    vertical-align: top;
+}
+
+#slide{
+    height: 400px;
+}
+
+#reference{
+    padding: 5px;
+}
+
+#refernece-select{
+    background-color: #444444;
+    border: 0px;
+    padding: 2px;
+}
+
