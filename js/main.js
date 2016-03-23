@@ -1,3 +1,16 @@
+angular.module('tastecodingApp', [])
+.controller('ReferenceController', function(){
+	var refList = this;
+	refList.refs = [
+		{id: "1", content: "abc"},
+		{id: "2", content: "abcd"},
+		{id: "3", content: "abce"},
+		{id: "4", content: "abcf"}
+	];
+	refList.selectedRef = {content:"이곳은 빠른 참조입니다. 이전 페이지에서 배웠던 내용을 빠르게 찾아볼 수 있습니다."};
+});
+
+
 // output functions are configurable.  This one just appends some text
 // to a pre element.
 function outf(text) {
@@ -27,8 +40,11 @@ function runit() {
 	});
 	myPromise.then(function(mod) {
 		console.log('success');
+        mypre.scrollTop = mypre.scrollHeight;
 	},
 	function(err) {
-		console.log(err.toString());
+		mypre.innerHTML = err.toString();
+        mypre.scrollIntoView(false);
 	});
 }
+

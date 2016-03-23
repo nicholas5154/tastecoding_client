@@ -1,97 +1,96 @@
+<!doctype html>
 <html>
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>코딩 맛보기</title>
-    <link rel="stylesheet" href="css/normalize.css">
-    <link rel="stylesheet" href="css/main.css">
-    <script src="js/jquery-2.2.1.min.js"></script>
-    <script src="js/skulpt.min.js"></script>
-    <script src="js/skulpt-stdlib.js"></script>
-    <script src="js/main.js"></script>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>코딩 맛보기</title>
+	<link rel="stylesheet" href="css/normalize.css">
+	<link rel="stylesheet" href="css/main.css">
+	<script src="js/jquery-2.2.1.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.2/angular.min.js"></script>
+	<script src="js/skulpt.min.js"></script>
+	<script src="js/skulpt-stdlib.js"></script>
+	<script src="js/main.js"></script>
 </head>
 
-<body>
+<body ng-app="tastecodingApp">
 
-    <div id="topbar">
-        <div id="logo">코딩맛보기</div>
-        <ul id="nav" class="nav">
-            <li>공부하기</li>
-            <li>마이페이지</li>
-            <li>질문하기</li>
-            <li>의견내기</li>
-            <li>로그아웃</li>
-        </ul>
-    </div>
+	<div id="topbar">
+		<div id="logo">코딩맛보기</div>
+		<ul id="nav" class="nav">
+			<li>공부하기</li>
+			<li>내 계정</li>
+			<li>질문하기</li>
+			<li>의견내기</li>
+			<li>로그아웃</li>
+		</ul>
+	</div>
 
-    <div id="content">
-        <div id="lectures-wrapper">
-            <ul id="lectures">
-                <li class="active">P1<span class="lecture-title">. 코딩맛보기 소개</span></li>
-                <li>P1<span class="lecture-title">. 코딩맛보기 소개</span></li>
-                <li>P2<span class="lecture-title">. 코딩 공부에 대해</span></li>
-                <li>P3<span class="lecture-title">. 코딩에 대해</span></li>
-                <li>L1<span class="lecture-title">. 출력</span></li>
-                <li>E1<span class="lecture-title">. 출력 연습</span></li>
-                <li>L2<span class="lecture-title">. 변수</span></li>
-                <li>E2<span class="lecture-title">. 변수 연습</span></li>
-                <li>L3<span class="lecture-title">. 사칙연산</span></li>
-                <li>E3<span class="lecture-title">. 사칙연산 연습</span></li>
-                <li>L4<span class="lecture-title">. 반복</span></li>
-                <li>E4<span class="lecture-title">. 반복 연습</span></li>
-                <li>L5<span class="lecture-title">. 데이터 타입</span></li>
-                <li>E5<span class="lecture-title">. 데이터 타입 연습</span></li>
-                <li>L6<span class="lecture-title">. 코딩맛보기 소개</span></li>
-            </ul>
-        </div>
-        <div id="editor-wrapper">
-            <ul class="tabs">
-                <li class="tab">코드 편집기</li><button type="button" onclick="runit()" id="editor-run">실행</button>
-            </ul>
-            <div id="editor">#이곳은 코드 편집기입니다.
-for i in range(1, 10):
-    print(i)
-</div>
-            <div id="output">
+	<div id="content">
+		<div id="lectures-wrapper">
+			<ul id="lectures">
+				<li class="active">P1<span class="lecture-title">. 코딩맛보기 소개</span></li>
+				<li>P2<span class="lecture-title">. 코딩 공부에 대해</span></li>
+				<li>P3<span class="lecture-title">. 코딩에 대해</span></li>
+				<li>L1<span class="lecture-title">. 출력</span></li>
+				<li>E1<span class="lecture-title">. 출력 연습</span></li>
+				<li>L2<span class="lecture-title">. 변수</span></li>
+				<li>E2<span class="lecture-title">. 변수 연습</span></li>
+				<li>L3<span class="lecture-title">. 사칙연산</span></li>
+				<li>E3<span class="lecture-title">. 사칙연산 연습</span></li>
+				<li>L4<span class="lecture-title">. 반복</span></li>
+				<li>E4<span class="lecture-title">. 반복 연습</span></li>
+				<li>L5<span class="lecture-title">. 데이터 타입</span></li>
+				<li>E5<span class="lecture-title">. 데이터 타입 연습</span></li>
+				<li>L6<span class="lecture-title">. 코딩맛보기 소개</span></li>
+			</ul>
+		</div>
+		<div id="left-wrapper">
+            <div id="editor-wrapper">
                 <ul class="tabs">
-                <li class="tab">결과</li>
-            </ul>
-            </div>
-        </div>
-        <div id="slide-wrapper">
-            <ul class="tabs">
-                <li class="tab">강의</li>
-            </ul>
-            <div id="slide">
-                <video src=""></video>
-            </div>
-            <ul class="tabs">
-                <li class="tab">빠른 참조</li>
-                <select name="reference" id="refernece-select">
-                    <option value="p1">P1. 코딩맛보기 소개</option>
-                    <option value="p1">P2. 코딩맛보기 소개</option>
-                    <option value="p1">P3. 코딩맛보기 소개</option>
-                    <option value="p1">P1. 코딩맛보기 소개</option>
-                    <option value="p1">P1. 코딩맛보기 소개</option>
-                    <option value="p1">P1. 코딩맛보기 소개</option>
-                    <option value="p1">P1. 코딩맛보기 소개</option>
-                    <option value="p1">P1. 코딩맛보기 소개</option>
-                    <option value="p1">P1. 코딩맛보기 소개</option>
-                </select>
-            </ul>
-            <div id="reference">
-                이곳은 빠른 참조입니다. 이전 페이지에서 배웠던 내용을 빠르게 찾아볼 수 있습니다.
-            </div>
-        </div>
+                    <li class="tab">코드 편집기</li><button type="button" onclick="runit()" id="editor-run">실행</button>
+                </ul>
+                <div id="editor">#이곳은 코드 편집기입니다.
+    for i in range(1, 10):
+        print(i)
     </div>
+            </div>
+            <div id="output-wrapper">
+                <ul class="tabs">
+                    <li class="tab">출력</li>
+                </ul>
+                <div id="output">
+                    이곳은 여러분이 쓴 코드의 실행 결과가 출력되는 곳입니다.
+                </div>
+            </div>
+		</div>
+		<div id="right-wrapper">
+		<div id="slide-wrapper" ng-controller="ReferenceController as refList">
+			<ul class="tabs">
+				<li class="tab">강의</li>
+			</ul>
+			<div id="slide">
+				코딩맛보기에 오신 것을 환영합니다!
+			</div>
+			<ul class="tabs">
+				<li class="tab">빠른 참조</li>
+				<select name="reference" id="refernece-select" ng-options="ref.id for ref in refList.refs" ng-model="refList.selectedRef">
+				</select>
+			</ul>
+			<div id="reference">
+				{{refList.selectedRef.content}}
+			</div>
+		</div>
+		</div>
+	</div>
 
-    <script src="/ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
-    <script>
-        editor = ace.edit("editor");
-        editor.setTheme("ace/theme/monokai");
-        editor.getSession().setMode("ace/mode/python");
-        editor.setShowPrintMargin(false);
-    </script>
+	<script src="ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+	<script>
+		editor = ace.edit("editor");
+		editor.setTheme("ace/theme/monokai");
+		editor.getSession().setMode("ace/mode/python");
+		editor.setShowPrintMargin(false);
+	</script>
 </body>
 
 </html>

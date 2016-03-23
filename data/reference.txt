@@ -1,0 +1,260 @@
+###Programs
+프로그램을 입력, 연산, 출력 세 단계로 나눠서 생각하자.
+어떻게 시작할지 막막하다면
+1. 출력되어야 하는 결과는 어떤 것인지 생각
+2. 출력이 입력에 따라 달라진다면 입력받아야 할 내용들이 무엇인가?
+3. 어떤 연산을 통해 올바른 출력을 만들어 낼 것인가?
+
+###Output
+지금 당장은 print나 ( ) 표시와 ' '표시를 이해하기보다 그대로 배껴 쓰며 익숙해지는 데에 집중하자.
+
+print('Hello World!')
+print('Brave New World')
+
+###Variables
+변수(variable): 값(value)의 저장소. 
+변수명(variable name): 저장소들에 프로그래머가 붙이는 이름. 변수명을 통해 저장소에 접근하여 값을 저장하거나 불러올 수 있음
+변수명은 숫자나 특수문자로 시작할 수 없다. 되도록 소문자를 쓰고 읽기 편하도록 단어는 _ 로 구분한다.
+
+intvar = 10
+float_var = 1.5
+string_var123 = 'this is a string, list of characters'
+
+print(intvar)
+print(float_var)
+print(string_var123)
+
+###Types
+자료형(type): 자료의 종류.
+정수형(int), 실수형(float), 문자열(string) 정도만 알아놓자
+
+intvar = 10 #int 자료형
+float_var = 1.5 #float 자료형
+string_var123 = 'this is a string, list of characters' #string 자료형
+
+type() #변수의 자료형을 알려줌
+
+print(type(intvar))
+print(type(float_var))
+print(type(string_var123))
+
+###Operators
+연산자(opeator): +, -, *, / 등 특정 연산을 나타내는 기호들
+피연산자(operand): 연산의 대상이 되는 값(변수 등)
+
+print(1+2)
+var_a = 6+2
+var_b = 6-2
+var_c = 6*2
+var_d = 6/2
+var_e = 6%2
+var_f = 6**2
+
+
+###Precedence
+example_var = input()
+print('Hello, ' + example_var + '!')
+
+###Input
+var_a = input()
+var_b = int(var_a)
+var_c = var_b + 10
+print(var_c)
+
+###List/Tuple
+열거형: 
+
+var_a = [1, 2, 3] #List
+var_b = (1, 2, 3, 4) #Tuple
+
+List는 아이템 추가/삭제/변경 가능 (mutable)
+Tuple은 한 번 만들면 변경 불가능 (immutable)
+
+print(var_a) #(1, 2, 3, 4)
+print(var_a[2]) #3
+
+###Loops
+for i in (1, 2, 3):
+	print(i)	
+
+var_a = (1, 2, 3, 4, 5, 6)
+for i in var_a:
+	print(i)
+
+for i in range(1, 100):
+	print(i)
+
+###Nested Loops
+for i in range(1, 10):
+	for j in range(1, 10):
+		print(str(i)+' * '+str(j)+' = '+str(i*j))
+
+###Logical Operators
+<, >, <=, >=, ==, !=
+
+var_a = 10>5 #True
+
+not, and, or
+not True #False
+not False #True
+True and True #True
+True and False #False
+False and False #False
+True or True #True
+True or False #True
+False or False #False
+
+###Conditionals1
+var_a = True
+if var_a:
+	print('check')
+
+###Conditionals2
+var_a = False
+if var_a:
+	print('check1')
+else:
+	print('check2')
+
+###Conditionals3
+var_a = 7
+var_b = var_a < 5 #False
+var_c = var_a < 10 #True
+
+if var_b:
+	print('check1')
+elif var_c:
+	print('check2')
+else:
+	print('check3')
+
+###Nested Conditionals
+var_a = 3
+if var_a > 0:
+	if var_a == 1:
+		print('check1')
+	elif var_a%2 == 0:
+		print('check2')
+	else:
+		print('check3')
+else:
+	print('check4')
+
+###Conditionals and Loops
+for i in range(1, 10):
+	if i%2==0:
+		print(i)
+
+
+###Functions
+def func_a():
+	print('Hello World!')
+	print('Hello Again!')
+
+func_a()
+
+###Parameters
+def func_a(var_a):
+	print('Hello, ' + str(var_a))
+
+func_a('World!')
+
+###Return
+def is_even(var_a):
+	if var_a % 2 == 0:
+		return True
+	else:
+		return False
+
+for i in range(1, 30):
+	if is_even(i):
+		print(i)
+
+def is_prime(var_a):
+	count = 0
+	for i in range(1, var_a+1):
+		if var_a % i == 0:
+			count = count + 1
+	if count == 2:
+		return True
+	else:
+		return False
+
+for i in range(1, 30):
+	if is_prime(i):
+		print(i)
+
+###Scope
+var_a = 10
+
+def add_maybe(var_a):
+	var_a = var_a + 10
+
+add_maybe(var_a)
+
+if var_a == 10:
+	var_a = var_a + 5
+
+###Built-in Functions
+#https://docs.python.org/3/library/functions.html
+print()
+input()
+type()
+open()
+
+format()
+
+int()
+float()
+bool()
+str()
+list()
+tuple()
+dict()
+
+abs() #숫자의 절대값을 돌려줌
+pow()
+round()
+
+max()
+min()
+
+all()
+any()
+
+range()
+slice()
+
+len()
+sorted()
+filter()
+sum()
+map()
+reversed()
+
+###Dictionary
+Key가 숫자가 아닌 값들인 리스트같은 구조 (Key-Value Pair)
+var_a = {}
+var_a['key_a'] = 'value_a'
+var_a['key_b'] = 'value_b'
+
+###Object-Oriented Programming
+
+###Class
+class Student:
+	var_a = 10
+	var_b = 12
+	def __init__():
+		self.var_c = 14
+		self.var_d = 16
+
+###Objects
+student_var = Student()
+another_var = Student()
+
+
+###Class Functions
+
+
+###Instantiation
+
