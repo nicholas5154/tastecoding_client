@@ -25,26 +25,15 @@
 			<li>로그아웃</li>
 		</ul>
 	</div>
-
-	<div id="content">
-		<div id="lectures-wrapper">
+    <div id="body-wrapper">
+    <div id="lectures-wrapper">
 			<ul id="lectures">
-				<li class="active">P1<span class="lecture-title">. 코딩맛보기 소개</span></li>
-				<li>P2<span class="lecture-title">. 코딩 공부에 대해</span></li>
-				<li>P3<span class="lecture-title">. 코딩에 대해</span></li>
-				<li>L1<span class="lecture-title">. 출력</span></li>
-				<li>E1<span class="lecture-title">. 출력 연습</span></li>
-				<li>L2<span class="lecture-title">. 변수</span></li>
-				<li>E2<span class="lecture-title">. 변수 연습</span></li>
-				<li>L3<span class="lecture-title">. 사칙연산</span></li>
-				<li>E3<span class="lecture-title">. 사칙연산 연습</span></li>
-				<li>L4<span class="lecture-title">. 반복</span></li>
-				<li>E4<span class="lecture-title">. 반복 연습</span></li>
-				<li>L5<span class="lecture-title">. 데이터 타입</span></li>
-				<li>E5<span class="lecture-title">. 데이터 타입 연습</span></li>
-				<li>L6<span class="lecture-title">. 코딩맛보기 소개</span></li>
+				<li ng-repeat="lec in lecList.list">{{lec.no}}<span class="lecture-title">. {{lec.name}} ({{lec.engName}})</span></li>
 			</ul>
-		</div>
+    </div>
+    <div id="content-wrapper">
+	<div id="content" ng-controller="LecturesController as lecList">
+		
 		<div id="left-wrapper">
             <div id="editor-wrapper">
                 <ul class="tabs">
@@ -65,25 +54,29 @@
             </div>
 		</div>
 		<div id="right-wrapper">
-		<div id="slide-wrapper" ng-controller="ReferenceController as refList">
-			<ul class="tabs">
-				<li class="tab">강의</li>
-			</ul>
-			<div id="slide">
-				코딩맛보기에 오신 것을 환영합니다!
-			</div>
-			<ul class="tabs">
-				<li class="tab">빠른 참조</li>
-				<select name="reference" id="refernece-select" ng-options="ref.id for ref in refList.refs" ng-model="refList.selectedRef">
-				</select>
-			</ul>
-			<div id="reference">
-				{{refList.selectedRef.content}}
-			</div>
-		</div>
+            <div id="slide-wrapper">
+                <ul class="tabs">
+                    <li class="tab">강의</li>
+                </ul>
+                <div id="slide">
+                    코딩맛보기에 오신 것을 환영합니다!
+                </div>
+
+            </div>
+            <div id="ref-wrapper">
+                <ul class="tabs">
+                    <li class="tab">빠른 참조</li>
+                    <select name="reference" id="refernece-select" ng-options="ref.name for ref in lecList.list" ng-model="lecList.selectedRef">
+                    </select>
+                </ul>
+                <div id="reference">
+                    <pre>{{lecList.selectedRef.refText}}</pre>
+                </div>
+            </div>
 		</div>
 	</div>
-
+	</div>
+    </div>
 	<script src="ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
 	<script>
 		editor = ace.edit("editor");

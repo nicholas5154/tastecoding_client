@@ -1,13 +1,14 @@
 angular.module('tastecodingApp', [])
-.controller('ReferenceController', function(){
-	var refList = this;
-	refList.refs = [
-		{id: "1", content: "abc"},
-		{id: "2", content: "abcd"},
-		{id: "3", content: "abce"},
-		{id: "4", content: "abcf"}
-	];
-	refList.selectedRef = {content:"이곳은 빠른 참조입니다. 이전 페이지에서 배웠던 내용을 빠르게 찾아볼 수 있습니다."};
+.controller('LecturesController', function($http){
+    var lecList = this;
+    
+    $http.get('/data/lecture-list.json')
+   .then(function(res){
+      lecList.list = res.data;                
+    });
+    
+    lecList.selectedRef = {}
+    
 });
 
 

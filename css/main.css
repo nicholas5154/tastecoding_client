@@ -48,21 +48,19 @@ ul{
     margin-right: 10px;
 }
 
-#content{
+#body-wrapper{
+    position: absolute;
     display: flex;
-    vertical-align: top;
-    position: relative;
-    top: 0px;
-    height: calc(100% - 40px);
-}
-
-#lectures-wrapper{
-    vertical-align: top;
-    font-size: 12px;
-    flex-shrink: 1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    flex: 1;
 }
 
 #lectures{
+    position: relative;
+    flex-shrink: 1;
     padding-top: 8px;
     color: #aaaaaa;
 }
@@ -89,6 +87,31 @@ ul{
     color: dddddd;
 }
 
+#content-wrapper{
+    position: relative;
+    flex: 1;
+}
+
+#content{
+    display: flex;
+    vertical-align: top;
+    position: absolute;
+    top: 34px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+#lectures-wrapper{
+    position: relative;
+    height: 100%;
+    overflow-y: scroll;
+    vertical-align: top;
+    font-size: 12px;
+    flex-shrink: 1;
+}
+
+
 .tabs{
     padding-top: 5px;
     font-size: 13px;
@@ -104,16 +127,20 @@ ul{
 }
 
 #left-wrapper{
-    display: flex;
-    flex: 1;
+    width: 50%;
     flex-direction: column;
+    position: absolute;
+    top: 0;
+    bottom: 0;
 }
 
 #editor-wrapper{
+    height: 70%;
     flex: 4;
     vertical-align: top;
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 
 #editor-run{
@@ -123,11 +150,12 @@ ul{
 }
 
 #editor {
-    position: relative;
-    width: 100%;
-    height: 100%;
+    position: absolute;
+    top: 30px;
+    left: 0;
+    right: 0;
+    bottom: 0;
     font-size: 16px;
-    border-right: 1px solid #333333;
 }
 
 #output-wrapper{
@@ -136,29 +164,39 @@ ul{
 
 #output{
     overflow-y: scroll;
-    flex: 1; 
 }
 
 #right-wrapper{
-    flex: 1;
-    display:flex;    
+    width: 50%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
 }
 
 #slide-wrapper{
-    flex: 2;
-    width: 46%;
     vertical-align: top;
-    display: flex;
-    flex-direction: column;
+    height: 50%;
 }
 
 #slide{
-    flex: 6;
+    border-left: 1px solid #333333;
+    height: 100%;
+}
+
+#ref-wrapper{
+    position:relative;
+    height: 50%;
 }
 
 #reference{
-    flex: 4;
-    padding: 5px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 33px;
+    border-left: 1px solid #333333;
+    overflow-y: scroll;
 }
 
 #refernece-select{

@@ -1,0 +1,219 @@
+[
+  {
+    "id" : "00e061c3",
+    "no" : "P00",
+    "name" : "코딩맛보기 소개",
+    "engName" : "",
+    "refText" : ""
+  },
+  {
+    "id" : "fc070f8d",
+    "no" : "P01",
+    "name" : "코딩 공부에 대하여",
+    "engName" : "",
+    "refText" : ""
+  },
+  {
+    "id" : "f46d8616",
+    "no" : "P02",
+    "name" : "코딩에 대하여",
+    "engName" : "",
+    "refText" : ""
+  },
+  {
+    "id" : "020f257e",
+    "no" : "L00",
+    "name" : "프로그램",
+    "engName" : "Programs",
+    "refText" : "프로그램을 입력, 연산, 출력 세 단계로 나눠서 생각하자.\r\n어떻게 시작할지 막막하다면\r\n1. 출력되어야 하는 결과는 어떤 것인지 생각\r\n2. 출력이 입력에 따라 달라진다면 입력받아야 할 내용들이 무엇인가?\r\n3. 어떤 연산을 통해 올바른 출력을 만들어 낼 것인가?"
+  },
+  {
+    "id" : "c7c51365",
+    "no" : "L01",
+    "name" : "출력",
+    "engName" : "Output",
+    "refText" : "지금 당장은 print나 ( ) 표시와 ' '표시를 이해하기보다 그대로 배껴 쓰며 익숙해지는 데에 집중하자.\r\n\r\nprint('Hello World!')\r\nprint('Brave New World')"
+  },
+  {
+    "id" : "0cf74def",
+    "no" : "L02",
+    "name" : "변수",
+    "engName" : "Variables",
+    "refText" : "변수(variable): 값(value)의 저장소. \r\n변수명(variable name): 저장소들에 프로그래머가 붙이는 이름. 변수명을 통해 저장소에 접근하여 값을 저장하거나 불러올 수 있음\r\n변수명은 숫자나 특수문자로 시작할 수 없다. 되도록 소문자를 쓰고 읽기 편하도록 단어는 _ 로 구분한다.\r\n\r\nintvar = 10\r\nfloat_var = 1.5\r\nstring_var123 = 'this is a string, list of characters'\r\n\r\nprint(intvar)\r\nprint(float_var)\r\nprint(string_var123)"
+  },
+  {
+    "id" : "078ed792",
+    "no" : "L03",
+    "name" : "자료형",
+    "engName" : "Types",
+    "refText" : "자료형(type): 자료의 종류.\r\n정수형(int), 실수형(float), 문자열(string) 정도만 알아놓자\r\n\r\nintvar = 10 #int 자료형\r\nfloat_var = 1.5 #float 자료형\r\nstring_var123 = 'this is a string, list of characters' #string 자료형\r\n\r\ntype() #변수의 자료형을 알려줌\r\n\r\nprint(type(intvar))\r\nprint(type(float_var))\r\nprint(type(string_var123))"
+  },
+  {
+    "id" : "56f6bf53",
+    "no" : "L04",
+    "name" : "연산",
+    "engName" : "Operators",
+    "refText" : "연산자(opeator): +, -, *, / 등 특정 연산을 나타내는 기호들\r\n피연산자(operand): 연산의 대상이 되는 값(변수 등)\r\n\r\nprint(1+2)\r\nvar_a = 6+2\r\nvar_b = 6-2\r\nvar_c = 6*2\r\nvar_d = 6/2\r\nvar_e = 6%2\r\nvar_f = 6**2"
+  },
+  {
+    "id" : "3002b634",
+    "no" : "L05",
+    "name" : "연산자 우선순위",
+    "engName" : "Precedence",
+    "refText" : ""
+  },
+  {
+    "id" : "af1f2f72",
+    "no" : "L06",
+    "name" : "입력",
+    "engName" : "Input",
+    "refText" : "example_var = input()\r\nprint('Hello, ' + example_var + '!')\r\n\r\n###Input\r\nvar_a = input()\r\nvar_b = int(var_a)\r\nvar_c = var_b + 10\r\nprint(var_c)"
+  },
+  {
+    "id" : "8ca1be80",
+    "no" : "L07",
+    "name" : "형변환",
+    "engName" : "Converting Types",
+    "refText" : ""
+  },
+  {
+    "id" : "5f2e85d0",
+    "no" : "L08",
+    "name" : "열거형",
+    "engName" : "List&Tuple",
+    "refText" : "열거형: \r\n\r\nvar_a = [1, 2, 3] #List\r\nvar_b = (1, 2, 3, 4) #Tuple\r\n\r\nList는 아이템 추가/삭제/변경 가능 (mutable)\r\nTuple은 한 번 만들면 변경 불가능 (immutable)\r\n\r\nprint(var_a) #(1, 2, 3, 4)\r\nprint(var_a[2]) #3\r\n"
+  },
+  {
+    "id" : "0e577a5d",
+    "no" : "L09",
+    "name" : "반복",
+    "engName" : "Loops",
+    "refText" : "for i in (1, 2, 3):\r\n\tprint(i)\t\r\n\r\nvar_a = (1, 2, 3, 4, 5, 6)\r\nfor i in var_a:\r\n\tprint(i)\r\n\r\nfor i in range(1, 100):\r\n\tprint(i)"
+  },
+  {
+    "id" : "d691cd96",
+    "no" : "L10",
+    "name" : "반복 중첩",
+    "engName" : "Nested Loops",
+    "refText" : "for i in range(1, 10):\r\n\tfor j in range(1, 10):\r\n\t\tprint(str(i)+' * '+str(j)+' = '+str(i*j))"
+  },
+  {
+    "id" : "dbe7e13b",
+    "no" : "L11",
+    "name" : "논리연산",
+    "engName" : "Logical Operators",
+    "refText" : "<, >, <=, >=, ==, !=\n\nvar_a = 10>5 #True\n\nnot, and, or\nnot True #False\nnot False #True\nTrue and True #True\nTrue and False #False\nFalse and False #False\nTrue or True #True\nTrue or False #True\nFalse or False #False\n"
+  },
+  {
+    "id" : "4b25d45c",
+    "no" : "L12",
+    "name" : "조건문1",
+    "engName" : "Conditionals1",
+    "refText" : "var_a = True\r\nif var_a:\r\n\tprint('check')"
+  },
+  {
+    "id" : "548ba236",
+    "no" : "L13",
+    "name" : "조건문2",
+    "engName" : "Conditionals2",
+    "refText" : "var_a = False\r\nif var_a:\r\n\tprint('check1')\r\nelse:\r\n\tprint('check2')"
+  },
+  {
+    "id" : "5d22ab6b",
+    "no" : "L14",
+    "name" : "조건문3",
+    "engName" : "Conditionals3",
+    "refText" : "var_a = 7\r\nvar_b = var_a < 5 #False\r\nvar_c = var_a < 10 #True\r\n\r\nif var_b:\r\n\tprint('check1')\r\nelif var_c:\r\n\tprint('check2')\r\nelse:\r\n\tprint('check3')"
+  },
+  {
+    "id" : "75619ce9",
+    "no" : "L15",
+    "name" : "조건문 중첩",
+    "engName" : "Nested Conditionals",
+    "refText" : "var_a = 3\r\nif var_a > 0:\r\n\tif var_a == 1:\r\n\t\tprint('check1')\r\n\telif var_a%2 == 0:\r\n\t\tprint('check2')\r\n\telse:\r\n\t\tprint('check3')\r\nelse:\r\n\tprint('check4')"
+  },
+  {
+    "id" : "12ad6168",
+    "no" : "L16",
+    "name" : "반복문과 조건문의 조합",
+    "engName" : "Conditionals and Loops",
+    "refText" : "for i in range(1, 10):\r\n\tif i%2==0:\r\n\t\tprint(i)"
+  },
+  {
+    "id" : "1a80245d",
+    "no" : "L17",
+    "name" : "함수",
+    "engName" : "Functions",
+    "refText" : "def func_a():\r\n\tprint('Hello World!')\r\n\tprint('Hello Again!')\r\n\r\nfunc_a()"
+  },
+  {
+    "id" : "69f2ba3c",
+    "no" : "L18",
+    "name" : "파라미터",
+    "engName" : "Parameters",
+    "refText" : "def func_a(var_a):\r\n\tprint('Hello, ' + str(var_a))\r\n\r\nfunc_a('World!')"
+  },
+  {
+    "id" : "e68ebef8",
+    "no" : "L19",
+    "name" : "리턴",
+    "engName" : "Return",
+    "refText" : "def is_even(var_a):\n        if var_a % 2 == 0:\n                return True\n        else:\n                return False\n\nfor i in range(1, 30):\n        if is_even(i):\n                print(i)\n\ndef is_prime(var_a):\n        count = 0\n        for i in range(1, var_a+1):\n                if var_a % i == 0:\n                        count = count + 1\n        if count == 2:\n                return True\n        else:\n                return False\n\nfor i in range(1, 30):\n        if is_prime(i):\n                print(i)\n"
+  },
+  {
+    "id" : "b2667094",
+    "no" : "L20",
+    "name" : "스코프",
+    "engName" : "Scope",
+    "refText" : "var_a = 10\r\n\r\ndef add_maybe(var_a):\r\n\tvar_a = var_a + 10\r\n\r\nadd_maybe(var_a)\r\n\r\nif var_a == 10:\r\n\tvar_a = var_a + 5"
+  },
+  {
+    "id" : "1e15320c",
+    "no" : "L21",
+    "name" : "내장 함수",
+    "engName" : "Built-in Functions",
+    "refText" : "#https://docs.python.org/3/library/functions.html\r\nprint()\r\ninput()\r\ntype()\r\nopen()\r\n\r\nformat()\r\n\r\nint()\r\nfloat()\r\nbool()\r\nstr()\r\nlist()\r\ntuple()\r\ndict()\r\n\r\nabs() #숫자의 절대값을 돌려줌\r\npow()\r\nround()\r\n\r\nmax()\r\nmin()\r\n\r\nall()\r\nany()\r\n\r\nrange()\r\nslice()\r\n\r\nlen()\r\nsorted()\r\nfilter()\r\nsum()\r\nmap()\r\nreversed()\r\n"
+  },
+  {
+    "id" : "3690ac76",
+    "no" : "L22",
+    "name" : "딕셔너리",
+    "engName" : "Dictionary",
+    "refText" : "Key가 숫자가 아닌 값들인 리스트같은 구조 (Key-Value Pair)\r\nvar_a = {}\r\nvar_a['key_a'] = 'value_a'\r\nvar_a['key_b'] = 'value_b'\r\n"
+  },
+  {
+    "id" : "ec2f074a",
+    "no" : "L23",
+    "name" : "객체지향언어 개념",
+    "engName" : "Object-Oriented Programming",
+    "refText" : ""
+  },
+  {
+    "id" : "5a83ef33",
+    "no" : "L24",
+    "name" : "클래스",
+    "engName" : "Class",
+    "refText" : "class Student:\r\n\tvar_a = 10\r\n\tvar_b = 12\r\n\tdef __init__():\r\n\t\tself.var_c = 14\r\n\t\tself.var_d = 16"
+  },
+  {
+    "id" : "f05a45f5",
+    "no" : "L25",
+    "name" : "객체",
+    "engName" : "Objects",
+    "refText" : "student_var = Student()\r\nanother_var = Student()"
+  },
+  {
+    "id" : "a558c47e",
+    "no" : "L26",
+    "name" : "클래스 안의 함수",
+    "engName" : "Class Functions",
+    "refText" : ""
+  },
+  {
+    "id" : "24af1cf7",
+    "no" : "L27",
+    "name" : "객체화",
+    "engName" : "Instantiation",
+    "refText" : ""
+  }
+]
