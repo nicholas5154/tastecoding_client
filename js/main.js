@@ -1,13 +1,26 @@
 angular.module('tastecodingApp', [])
 .controller('LecturesController', function($http){
-    var lecList = this;
+    var lec_controller = this;
     
     $http.get('/data/lecture-list.json')
    .then(function(res){
-      lecList.list = res.data;                
+      lec_controller.list = res.data;                
     });
     
-    lecList.selectedRef = {}
+    lec_controller.selectedRef = {};
+    lec_controller.selectedLec = {};
+    
+    lec_controller.selectLecture = function(lecID){
+        selectedLec = lec_controller.list[lecID];
+    };
+    
+    lec_controller.selectReference = function(refID){
+        selectedRef = lec_controller.list[refID];
+    };
+    
+    lec_controller.updateRef = function(){
+        reference.setValue(lec_controller.selectedRef.refText, -1);
+    };
     
 });
 

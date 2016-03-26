@@ -23,10 +23,21 @@ ul{
     margin-bottom: 0px;
 }
 
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none;   /* Chrome/Safari/Opera */
+  -khtml-user-select: none;    /* Konqueror */
+  -moz-user-select: none;      /* Firefox */
+  -ms-user-select: none;       /* IE/Edge */
+  user-select: none;           /* non-prefixed version, currently
+                                  not supported by any browser */
+}
+
 #topbar{
     position: relative;
     padding: 8px;
     background-color: #141411;
+    cursor: default;
 }
 
 #logo{
@@ -44,25 +55,33 @@ ul{
 }
 
 #nav li{
+    cursor: pointer;
     display: inline-block;
     margin-right: 10px;
 }
 
 #body-wrapper{
-    position: absolute;
     display: flex;
-    top: 0;
-    left: 0;
+    position: absolute;
+    top: 38px;
     right: 0;
     bottom: 0;
-    flex: 1;
+    left: 0;
+}
+
+#lectures-wrapper{
+    padding-top: 2px;
+    color: #aaaaaa;
+    top: 0;
+    bottom: 0;
+    overflow-y: scroll;
+    vertical-align: top;
+    font-size: 12px;
+    flex-shrink: 1;
 }
 
 #lectures{
     position: relative;
-    flex-shrink: 1;
-    padding-top: 8px;
-    color: #aaaaaa;
 }
 
 #lectures:hover span.lecture-title{
@@ -96,23 +115,14 @@ ul{
     display: flex;
     vertical-align: top;
     position: absolute;
-    top: 34px;
+    top: 0;
     bottom: 0;
     left: 0;
     right: 0;
 }
 
-#lectures-wrapper{
-    position: relative;
-    height: 100%;
-    overflow-y: scroll;
-    vertical-align: top;
-    font-size: 12px;
-    flex-shrink: 1;
-}
-
-
 .tabs{
+    cursor:default;
     padding-top: 5px;
     font-size: 13px;
     color: #bbbbbb;
@@ -136,9 +146,7 @@ ul{
 
 #editor-wrapper{
     height: 70%;
-    flex: 4;
     vertical-align: top;
-    display: flex;
     flex-direction: column;
     position: relative;
 }
@@ -151,7 +159,7 @@ ul{
 
 #editor {
     position: absolute;
-    top: 30px;
+    top: 32px;
     left: 0;
     right: 0;
     bottom: 0;
@@ -159,10 +167,16 @@ ul{
 }
 
 #output-wrapper{
-    flex: 2;
+    height: 30%;
+    position: relative;
 }
 
 #output{
+    position: absolute;
+    top: 32px;
+    left: 0;
+    right: 0;
+    bottom: 0;
     overflow-y: scroll;
 }
 
@@ -191,12 +205,17 @@ ul{
 
 #reference{
     position: absolute;
+    font-size: 16px;
     left: 0;
     right: 0;
     bottom: 0;
     top: 33px;
     border-left: 1px solid #333333;
     overflow-y: scroll;
+}
+
+#reference .ace_gutter-layer{
+    display:none;
 }
 
 #refernece-select{
