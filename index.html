@@ -85,10 +85,12 @@ for i in range(1, 10):
         reference = ace.edit("reference");
         reference.setTheme("ace/theme/monokai");
         reference.getSession().setMode("ace/mode/python");
+        reference.getSession().setUseWrapMode(true);
         reference.setShowPrintMargin(false);
         reference.setReadOnly(true);
         reference.setHighlightActiveLine(false);
         reference.renderer.$cursorLayer.element.style.display = "none";
+        reference.setWrapBehavioursEnabled(true);
     </script>
 </body>
 
