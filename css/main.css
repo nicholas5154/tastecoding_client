@@ -48,24 +48,62 @@ pre{
     cursor: default;
 }
 
+#topbar-inner{
+    position: relative;
+    text-align: center;
+}
+
 #logo{
-    display: inline-block;
+    position: absolute;
+    bottom: 0;
     margin-left: 12px;
     font-weight: 800;
     color: cccccc;
 }
 
-#nav{
+.nav{
     display: inline-block;
     font-size: 14px;
     margin-left: 30px;
     color: bbbbbb;
 }
 
-#nav li{
+.nav li{
     cursor: pointer;
     display: inline-block;
     margin-right: 10px;
+    font-weight: 400;
+}
+
+#lecture-title-wrapper{
+    display: inline-block;
+}
+
+#lecture-title-bar{
+    display: flex;
+    text-align: center;
+    margin: auto;
+}
+
+#lecture-title-bar>div{
+    vertical-align: middle;    
+    margin: 0px 10px;
+}
+
+#lecture-title{
+    vertical-align: bottom;
+    font-weight: 600;
+}
+
+.lecture-nav-btn{
+    vertical-align: bottom;
+    cursor: pointer;
+}
+
+#nav-right{
+    position: absolute;
+    bottom: 0;
+    right: 0;
 }
 
 #body-wrapper{

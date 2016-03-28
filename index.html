@@ -7,7 +7,8 @@
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/main.css">
     <script src="js/jquery-2.2.1.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.2/angular.min.js"></script>
+    <script src="js/angular.min.js"></script>
+    <script src="js/angular-cookies.js"></script>
     <script src="js/skulpt.min.js"></script>
     <script src="js/skulpt-stdlib.js"></script>
     <script src="js/main.js"></script>
@@ -16,22 +17,38 @@
 <body ng-app="tastecodingApp" ng-controller="LecturesController as lecList">
 
     <div id="topbar">
-        <div id="logo" class="noselect">코딩맛보기</div>
+       <div id="topbar-inner">
+        <div id="logo" class="noselect">코딩맛보기
+        
         <ul id="nav" class="nav noselect">
             <li>공부하기</li>
-            <li>내 계정</li>
             <li>질문하기</li>
+        </ul>
+        </div>
+        <ul id="nav-right" class="nav noselect">
+            <li>내 계정</li>
             <li>의견내기</li>
             <li>로그아웃</li>
         </ul>
+        <div id="lecture-title-wrapper" class="noselect">
+        <div id="lecture-title-bar">
+           <div id="previous-lecture" class="lecture-nav-btn" ng-click="lecList.toPrevLec()" ng-show="lecList.prevLec">{{lecList.prevLec.no}}. {{lecList.prevLec.name}}&nbsp;&nbsp;&nbsp;&lt; 
+            </div>
+           <div id="lecture-title">{{lecList.selectedLec.no}}. {{lecList.selectedLec.name}}</div>
+           <div id="next-lecture" class="lecture-nav-btn" ng-click="lecList.toNextLec()" ng-show="lecList.nextLec">
+            &gt;&nbsp;&nbsp;&nbsp;{{lecList.nextLec.no}}. {{lecList.nextLec.name}}</div>
+        </div>
+        </div>
+        </div>
     </div>
     <div id="body-wrapper">
         <div id="lectures-wrapper">
             <ul id="lectures" class="noselect">
-                <li ng-repeat="lec in lecList.list">{{lec.no}}<span class="lecture-title">. {{lec.name}} ({{lec.engName}})</span></li>
+                <li ng-repeat="lec in lecList.list" ng-click="lecList.selectLec(lec)" ng-class="{active:lec==lecList.selectedLec}">{{lec.no}}<span class="lecture-title">. {{lec.name}} ({{lec.engName}})</span></li>
             </ul>
         </div>
         <div id="content-wrapper">
+           
             <div id="content">
 
                 <div id="left-wrapper">
@@ -59,7 +76,7 @@ for i in range(1, 10):
                         <ul class="tabs noselect">
                             <li class="tab">강의</li>
                         </ul>
-                        <div id="slide">
+                        <div id="slide" class="noselect">
                             코딩맛보기에 오신 것을 환영합니다!
                         </div>
 

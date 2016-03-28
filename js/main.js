@@ -1,25 +1,58 @@
-angular.module('tastecodingApp', [])
-.controller('LecturesController', function($http){
-    var lec_controller = this;
+angular.module('tastecodingApp', ['ngCookies'])
+.controller('LecturesController', function($http, $cookies){
+    var lc = this;
     
     $http.get('/data/lecture-list.json')
    .then(function(res){
-      lec_controller.list = res.data;                
+      lc.list = res.data;
+      lc.loadCookies();
     });
     
-    lec_controller.selectedRef = {};
-    lec_controller.selectedLec = {};
-    
-    lec_controller.selectLecture = function(lecID){
-        selectedLec = lec_controller.list[lecID];
+    lc.loadCookies = function(){
+        //last lecture opened
+        var lastLec = $cookies.get('lastLec');
+        if(lastLec){
+            var lastLecObj =  $.grep(lc.list, function(e){
+                return e.id === lastLec;
+            });
+            lc.selectLec(lastLecObj[0]);
+        }
+        else{
+            lc.selectLec(lc.list[0]);
+        }
+        
+        // last reference opened
+        var lastRef = $cookies.get('lastRef');
+        var lastRefObj = $.grep(lc.list, function(e){
+            return e.id === lastRef;
+        });
+        lc.selectedRef = lastRefObj[0];
+        lc.updateRef();
     };
     
-    lec_controller.selectReference = function(refID){
-        selectedRef = lec_controller.list[refID];
+    lc.selectedRef = {};
+    lc.selectedLec = {};
+    lc.nextLec = {};
+    lc.prevLec = {};
+    
+    lc.selectLec = function(lec){
+        lc.selectedLec = lec;
+        $cookies.put('lastLec', lec.id);
+        lc.nextLec = lc.list[lc.list.indexOf(lec)+1];
+        lc.prevLec = lc.list[lc.list.indexOf(lec)-1];
+    }
+    
+    lc.toNextLec = function(){
+        lc.selectLec(lc.nextLec);
     };
     
-    lec_controller.updateRef = function(){
-        reference.setValue(lec_controller.selectedRef.refText, -1);
+    lc.toPrevLec = function(){
+        lc.selectLec(lc.prevLec);
+    };
+    
+    lc.updateRef = function(){
+        reference.setValue(lc.selectedRef.refText, -1);
+        $cookies.put('lastRef', lc.selectedRef.id);
     };
     
 });
