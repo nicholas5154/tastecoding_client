@@ -51,10 +51,87 @@ angular.module('tastecodingApp', ['ngCookies'])
     };
     
     lc.updateRef = function(){
-        reference.setValue(lc.selectedRef.refText, -1);
+        lc.reference.setValue(lc.selectedRef.refText, -1);
         $cookies.put('lastRef', lc.selectedRef.id);
     };
     
+    //EDITOR CONFIGURATIONS
+    lc.editor = ace.edit("editor");
+    lc.editor.setTheme("ace/theme/monokai");
+    lc.editor.getSession().setMode("ace/mode/python");
+    lc.editor.setShowPrintMargin(false);
+    lc.editor.$blockScrolling = Infinity;
+    lc.reference = ace.edit("reference");
+    lc.reference.setTheme("ace/theme/monokai");
+    lc.reference.getSession().setMode("ace/mode/python");
+    lc.reference.getSession().setUseWrapMode(true);
+    lc.reference.setShowPrintMargin(false);
+    lc.reference.setReadOnly(true);
+    lc.reference.setHighlightActiveLine(false);
+    lc.reference.renderer.$cursorLayer.element.style.display = "none";
+    lc.reference.setWrapBehavioursEnabled(true);
+    lc.reference.$blockScrolling = Infinity;
+    
+    deltas = [];
+    
+    lc.edit = true;
+    
+    lc.enableEdit = function(){
+        lc.edit = true;
+        lc.editor.on("change", function(e){
+            if(lc.edit){
+                //remove
+                if(deltas.length == 0)
+                    lc.rec_start_time = new Date();
+                deltas.push({
+                    time: new Date() - lc.rec_start_time,
+                    delta: e,
+                });
+            }
+        });
+        
+        lc.document = lc.editor.getSession().getDocument();
+    
+        play = function(index){
+            lc.editor.setReadOnly(true);
+            lc.edit = false;
+            if(index == 0){
+                play_delta = deltas.slice();
+                lc.editor.setValue("");
+            }
+            lc.document.applyDelta(play_delta[index].delta);
+            if(index < play_delta.length-1){
+                setTimeout(play, play_delta[index+1].time-play_delta[index].time, index+1);
+            }
+        };
+        
+        lc.recStart = function(){
+            lc.rec_start_time = new Date();
+        };
+    };
+    lc.enableEdit();
+    lc.recStart();
+    
+    lc.runit = function() {
+        var prog = lc.editor.getValue();
+        var mypre = document.getElementById("output");
+        mypre.innerHTML = '';
+        Sk.pre = "output";
+        Sk.configure({output:outf, read:builtinRead});
+        (Sk.TurtleGraphics || (Sk.TurtleGraphics = {})).target = 'mycanvas';
+        var myPromise = Sk.misceval.asyncToPromise(function() {
+            return Sk.importMainWithBody("<stdin>", false, prog, true);
+        });
+        myPromise.then(function(mod) {
+            console.log('success');
+            mypre.scrollTop = mypre.scrollHeight;
+        },
+        function(err) {
+            mypre.innerHTML = err.toString();
+            mypre.scrollIntoView(false);
+        });
+    };
+
 });
 
 
@@ -75,23 +152,3 @@ function builtinRead(x) {
 // get a reference to your pre element for output
 // configure the output function
 // call Sk.importMainWithBody()
-function runit() {
-	var prog = editor.getValue();
-	var mypre = document.getElementById("output");
-	mypre.innerHTML = '';
-	Sk.pre = "output";
-	Sk.configure({output:outf, read:builtinRead});
-	(Sk.TurtleGraphics || (Sk.TurtleGraphics = {})).target = 'mycanvas';
-	var myPromise = Sk.misceval.asyncToPromise(function() {
-		return Sk.importMainWithBody("<stdin>", false, prog, true);
-	});
-	myPromise.then(function(mod) {
-		console.log('success');
-        mypre.scrollTop = mypre.scrollHeight;
-	},
-	function(err) {
-		mypre.innerHTML = err.toString();
-        mypre.scrollIntoView(false);
-	});
-}
-

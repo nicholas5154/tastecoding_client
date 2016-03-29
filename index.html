@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/main.css">
     <script src="js/jquery-2.2.1.min.js"></script>
+    <script src="ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
     <script src="js/angular.min.js"></script>
     <script src="js/angular-cookies.js"></script>
     <script src="js/skulpt.min.js"></script>
@@ -55,12 +56,9 @@
                     <div id="editor-wrapper">
                         <ul class="tabs noselect">
                             <li class="tab">코드 편집기</li>
-                            <button type="button" onclick="runit()" id="editor-run">실행</button>
+                            <button type="button" ng-click="lecList.runit()" id="editor-run">실행</button>
                         </ul>
-                        <div id="editor">#이곳은 코드 편집기입니다. 올바르게 작동하기 위해서는 자바스크립트를 활성화해야 합니다.
-for i in range(1, 10):
-    print(i)
-</div>
+                        <div id="editor"></div>
                     </div>
                     <div id="output-wrapper">
                         <ul class="tabs noselect">
@@ -93,22 +91,6 @@ for i in range(1, 10):
             </div>
         </div>
     </div>
-    <script src="ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
-    <script>
-        editor = ace.edit("editor");
-        editor.setTheme("ace/theme/monokai");
-        editor.getSession().setMode("ace/mode/python");
-        editor.setShowPrintMargin(false);
-        reference = ace.edit("reference");
-        reference.setTheme("ace/theme/monokai");
-        reference.getSession().setMode("ace/mode/python");
-        reference.getSession().setUseWrapMode(true);
-        reference.setShowPrintMargin(false);
-        reference.setReadOnly(true);
-        reference.setHighlightActiveLine(false);
-        reference.renderer.$cursorLayer.element.style.display = "none";
-        reference.setWrapBehavioursEnabled(true);
-    </script>
 </body>
 
 </html>

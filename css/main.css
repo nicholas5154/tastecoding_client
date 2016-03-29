@@ -276,7 +276,6 @@ pre{
     bottom: 0;
     top: 33px;
     border-left: 1px solid #333333;
-    overflow-y: scroll;
 }
 
 #reference .ace_gutter-layer{
