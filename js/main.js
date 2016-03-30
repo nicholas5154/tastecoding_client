@@ -2,9 +2,11 @@ angular.module('tastecodingApp', ['ngCookies'])
 .controller('LecturesController', function($http, $cookies){
     var lc = this;
     
+    //lecture list initialization
     $http.get('/data/lecture-list.json')
    .then(function(res){
       lc.list = res.data;
+      //TODO: load user data from server
       lc.loadCookies();
     });
     
@@ -84,6 +86,7 @@ angular.module('tastecodingApp', ['ngCookies'])
                 if(deltas.length == 0)
                     lc.rec_start_time = new Date();
                 deltas.push({
+                    type: "editor",
                     time: new Date() - lc.rec_start_time,
                     delta: e,
                 });
@@ -93,13 +96,16 @@ angular.module('tastecodingApp', ['ngCookies'])
         lc.document = lc.editor.getSession().getDocument();
     
         play = function(index){
-            lc.editor.setReadOnly(true);
-            lc.edit = false;
             if(index == 0){
+                lc.editor.setReadOnly(true);
+                lc.edit = false;
                 play_delta = deltas.slice();
                 lc.editor.setValue("");
             }
-            lc.document.applyDelta(play_delta[index].delta);
+            switch(play_delta[index].type){
+                case "editor": lc.document.applyDelta(play_delta[index].delta); break;
+                case "runit": lc.runit(); break;
+            }
             if(index < play_delta.length-1){
                 setTimeout(play, play_delta[index+1].time-play_delta[index].time, index+1);
             }
@@ -113,6 +119,13 @@ angular.module('tastecodingApp', ['ngCookies'])
     lc.recStart();
     
     lc.runit = function() {
+        if(lc.edit){
+            deltas.push({
+                type: "runit",
+                time: new Date() - lc.rec_start_time,
+            });
+        }
+        
         var prog = lc.editor.getValue();
         var mypre = document.getElementById("output");
         mypre.innerHTML = '';
