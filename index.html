@@ -75,7 +75,7 @@
                             <li class="tab">강의</li>
                         </ul>
                         <ul id="slide" class="noselect">
-                            <li class="slide-item">lecture here</li>
+                            <li class="slide-item" ng-repeat="slide in lecList.slides" ng-click="lecList.selectSlide(slide)" ng-class="{active:slide==lecList.activeSlide}">{{ slide.text }}</li>
                         </ul>
 
                     </div>

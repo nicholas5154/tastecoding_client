@@ -256,7 +256,7 @@ pre{
 }
 
 #slide .active{
-    
+    background-color: #333;
 }
 
 .slide-item:hover{

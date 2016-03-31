@@ -59,7 +59,11 @@ angular.module('tastecodingApp', ['ngCookies'])
     
     //EDITOR CONFIGURATIONS
     lc.editor = ace.edit("editor");
+    editor = lc.editor;
+    lc.selection = lc.editor.getSession().getSelection();
+    sel = lc.selection;
     lc.editor.setTheme("ace/theme/monokai");
+    //lc.editor.setKeyboardHandler("ace/keyboard/sublime");
     lc.editor.getSession().setMode("ace/mode/python");
     lc.editor.setShowPrintMargin(false);
     lc.editor.$blockScrolling = Infinity;
@@ -75,6 +79,11 @@ angular.module('tastecodingApp', ['ngCookies'])
     lc.reference.$blockScrolling = Infinity;
     
     deltas = [];
+    lc.slides = [];
+    lc.activeSlide = {};
+    lc.selectSlide = function(slide){
+        lc.activeSlide = slide;
+    };
     
     lc.edit = true;
     
@@ -92,6 +101,13 @@ angular.module('tastecodingApp', ['ngCookies'])
                 });
             }
         });
+        lc.selection.on("changeSelection", function(){
+            deltas.push({
+                type: "selection",
+                time: new Date() - lc.rec_start_time,
+                range: lc.selection.getAllRanges(),
+            });
+        });
         
         lc.document = lc.editor.getSession().getDocument();
     
@@ -104,6 +120,12 @@ angular.module('tastecodingApp', ['ngCookies'])
             }
             switch(play_delta[index].type){
                 case "editor": lc.document.applyDelta(play_delta[index].delta); break;
+                case "selection":
+                    lc.selection.clearSelection();
+                    for(range of play_delta[index].range){
+                        lc.selection.addRange(range);
+                    }
+                    break;
                 case "runit": lc.runit(); break;
             }
             if(index < play_delta.length-1){
@@ -144,7 +166,43 @@ angular.module('tastecodingApp', ['ngCookies'])
             mypre.scrollIntoView(false);
         });
     };
-
+    
+    createPlayer = function(){
+        var time = 0;
+        var slides = [];
+        var slidesTimeout;
+        var editorEvents = [];
+        var editorEventsTimeout;
+        var audio;
+        return {
+            loadSlides: function(sl){
+                slides = sl;
+            },
+            loadAudio: function(aud){
+                audio = aud;
+            },
+            loadEditorEvents: function(edEv){
+                editorEvents = edEv;
+            },
+            setTime: function(t){
+                time = t;
+            },
+            play: function(t){
+                if(t===null){
+                        
+                }
+                else{
+                    //play from t
+                }
+            },
+            pause: function(){
+                //pause everything
+            },
+        }
+    };
+    
+    lc.player = createPlayer();
+        
 });
 
 
@@ -159,9 +217,3 @@ function builtinRead(x) {
 		throw "File not found: '" + x + "'";
 	return Sk.builtinFiles["files"][x];
 }
-
-// Here's everything you need to run a python program in skulpt
-// grab the code from your textarea
-// get a reference to your pre element for output
-// configure the output function
-// call Sk.importMainWithBody()
