@@ -1,5 +1,5 @@
 angular.module('tastecodingApp', ['ngCookies'])
-.controller('LectureController', function($http, $cookies){
+.controller('LectureController', function($http, $cookies, $scope){
 	var lc = this;
 
 	lc.lectures = [];
@@ -235,6 +235,19 @@ angular.module('tastecodingApp', ['ngCookies'])
 		}
 	};
 
+	lc.selectNextReference = function(){
+		var idx = lc.lectures.indexOf(lc.selectedReference);
+		if(lc.lectures[idx+1])
+			lc.selectedReference = lc.lectures[idx+1];
+		lc.showReference();
+	};
+
+	lc.selectPrevReference = function(){
+		var idx = lc.lectures.indexOf(lc.selectedReference);
+		if(lc.lectures[idx-1])
+			lc.selectedReference = lc.lectures[idx-1];
+		lc.showReference();
+	};
 
 	////////////////////////////////UTILITY///////////////////////////////////
 	lc.getNextTimedObjectIndex = function(arr, t){
@@ -278,6 +291,47 @@ angular.module('tastecodingApp', ['ngCookies'])
 	
 	}, function(rej){
 		alert("강의 리스트를 불러오지 못했습니다. 인터넷 연결을 확인해 주세요.");
+	});
+
+	//////////////////////////////BIND KEYS//////////////////////////////////////
+	Mousetrap.bind(['command+b', 'ctrl+b'], function(e){
+		lc.runit();
+	});
+
+	lc.editor.commands.addCommand({
+		name: "run",
+		bindKey: {win: "Ctrl-B", mac: "Command-B"},
+		exec: function(editor) {
+			lc.runit();
+		},
+	});
+
+	Mousetrap.bind(['command+,', 'ctrl+,'], function(e){
+		lc.selectPrevReference();
+		$scope.$apply();
+	});
+
+	lc.editor.commands.addCommand({
+		name: "selectPrevReference",
+		bindKey: {win: "Ctrl-,", mac: "Command-,"},
+		exec: function(editor) {
+			lc.selectPrevReference();
+			$scope.$apply();
+		},
+	});
+
+	Mousetrap.bind(['command+.', 'ctrl+.'], function(e){
+		lc.selectNextReference();
+		$scope.$apply();
+	});
+
+	lc.editor.commands.addCommand({
+		name: "selectNextReference",
+		bindKey: {win: "Ctrl-.", mac: "Command-."},
+		exec: function(editor) {
+			lc.selectNextReference();
+			$scope.$apply();
+		},
 	});
 
 });
