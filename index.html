@@ -12,10 +12,10 @@
     <script src="js/angular-cookies.js"></script>
     <script src="js/skulpt.min.js"></script>
     <script src="js/skulpt-stdlib.js"></script>
-    <script src="js/main.js"></script>
+    <script src="js/app.js"></script>
 </head>
 
-<body ng-app="tastecodingApp" ng-controller="LecturesController as lecList">
+<body ng-app="tastecodingApp" ng-controller="LectureController as lc">
 
     <div id="topbar">
        <div id="topbar-inner">
@@ -33,11 +33,11 @@
         </ul>
         <div id="lecture-title-wrapper" class="noselect">
         <div id="lecture-title-bar">
-           <div id="previous-lecture" class="lecture-nav-btn" ng-click="lecList.toPrevLec()" ng-show="lecList.prevLec">{{lecList.prevLec.no}}. {{lecList.prevLec.name}}&nbsp;&nbsp;&nbsp;&lt; 
+           <div id="previous-lecture" class="lecture-nav-btn" ng-click="lc.selectPrevLecture()" ng-show="lc.prevLecture">{{lc.prevLecture.no}}. {{lc.prevLecture.name}}&nbsp;&nbsp;&nbsp;&lt; 
             </div>
-           <div id="lecture-title">{{lecList.selectedLec.no}}. {{lecList.selectedLec.name}}</div>
-           <div id="next-lecture" class="lecture-nav-btn" ng-click="lecList.toNextLec()" ng-show="lecList.nextLec">
-            &gt;&nbsp;&nbsp;&nbsp;{{lecList.nextLec.no}}. {{lecList.nextLec.name}}</div>
+           <div id="lecture-title">{{lc.selectedLecture.no}}. {{lc.selectedLecture.name}}</div>
+           <div id="next-lecture" class="lecture-nav-btn" ng-click="lc.selectNextLecture()" ng-show="lc.nextLecture">
+            &gt;&nbsp;&nbsp;&nbsp;{{lc.nextLecture.no}}. {{lc.nextLecture.name}}</div>
         </div>
         </div>
         </div>
@@ -45,7 +45,7 @@
     <div id="body-wrapper">
         <div id="lectures-wrapper">
             <ul id="lectures" class="noselect">
-                <li ng-repeat="lec in lecList.list" ng-click="lecList.selectLec(lec)" ng-class="{active:lec==lecList.selectedLec}">{{lec.no}}<span class="lecture-title">. {{lec.name}} ({{lec.engName}})</span></li>
+                <li ng-repeat="lec in lc.lectures" ng-click="lc.selectLecture(lec)" ng-class="{active:lec==lc.selectedLecture}">{{lec.no}}<span class="lecture-title">. {{lec.name}} ({{lec.engName}})</span></li>
             </ul>
         </div>
         <div id="content-wrapper">
@@ -56,7 +56,7 @@
                     <div id="editor-wrapper">
                         <ul class="tabs noselect">
                             <li class="tab">코드 편집기</li>
-                            <button type="button" ng-click="lecList.runit()" id="editor-run">실행</button>
+                            <button type="button" ng-click="lc.runit()" id="editor-run">실행</button>
                         </ul>
                         <div id="editor"></div>
                     </div>
@@ -75,14 +75,14 @@
                             <li class="tab">강의</li>
                         </ul>
                         <ul id="slide" class="noselect">
-                            <li class="slide-item" ng-repeat="slide in lecList.slides" ng-click="lecList.selectSlide(slide)" ng-class="{active:slide==lecList.activeSlide}">{{ slide.text }}</li>
+                            <li class="slide-item" ng-repeat="slide in lc.slides" ng-click="lc.selectSlide(slide)" ng-class="{active:slide==lc.activeSlide}">{{ slide.text }}</li>
                         </ul>
 
                     </div>
                     <div id="ref-wrapper">
                         <ul class="tabs noselect">
                             <li class="tab">빠른 참조</li>
-                            <select name="reference" id="refernece-select" ng-options="ref.no+' '+ref.name for ref in lecList.list" ng-model="lecList.selectedRef" ng-change="lecList.updateRef()">
+                            <select name="reference" id="refernece-select" ng-options="ref.no+' '+ref.name for ref in lc.lectures" ng-model="lc.selectedReference" ng-change="lc.showReference()">
                             </select>
                         </ul>
                         <div id="reference"></div>
