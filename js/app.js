@@ -31,6 +31,7 @@ angular.module('tastecodingApp', ['ngCookies'])
 		lc.editor.setTheme("ace/theme/monokai");
 		//lc.editor.setKeyboardHandler("ace/keyboard/sublime");
 		lc.editor.getSession().setMode("ace/mode/python");
+		lc.document = lc.editor.getSession().getDocument();
 		lc.editor.setShowPrintMargin(false);
 		lc.editor.$blockScrolling = Infinity;
 		lc.reference = ace.edit("reference");
@@ -39,6 +40,8 @@ angular.module('tastecodingApp', ['ngCookies'])
 		lc.reference.getSession().setUseWrapMode(true);
 		lc.reference.setShowPrintMargin(false);
 		lc.reference.setReadOnly(true);
+		lc.reference.commands.readOnly = true;
+		lc.reference.textInput.getElement().disabled = true;
 		lc.reference.setHighlightActiveLine(false);
 		lc.reference.renderer.$cursorLayer.element.style.display = "none";
 		lc.reference.setWrapBehavioursEnabled(true);
@@ -56,7 +59,18 @@ angular.module('tastecodingApp', ['ngCookies'])
 		$cookies.put('lastLec', lc.selectedLecture.id);
 
 		//TODO: load audio
+		lc.selectedLecture.audioURL = "data/sample.mp3";
+
 		//TODO: load slides
+		$http.get('data/slides_'+lc.selectedLecture.id+'.json')
+		.then(function(res){
+			lc.slides = res.data;
+			lc.selectSlide(lc.slides[0]);
+		}, function(rej){
+			lc.slides = [{
+				"text" : "강의를 찾지 못했습니다"
+			}];
+		});
 		//TODO: load editorEvents
 	};
 
@@ -117,17 +131,18 @@ angular.module('tastecodingApp', ['ngCookies'])
 
 	lc.playEditorEvent = function(idx){
 		if(!idx){
+			lc.editor.setReadOnly(true);
 			var now = lc.getTime();
-			idx = lc.getNextTimedObjectIndex(lc.editorEvents, now);
+			idx = lc.getNextTimedObjectIndex(lc.editorEvents, now) - 1;
 		}
 		else{
-			applyEditorEvent(lc.editorEvents[idx]);
+			lc.applyEditorEvent(lc.editorEvents[idx]);
 		}
 		now = lc.getTime();
 		lc.editorEventTimeout = setTimeout(
 			lc.playEditorEvent,
 			lc.editorEvents[idx+1].time - now,
-			index+1
+			idx+1
 			);
 	};
 	//remove
@@ -147,29 +162,69 @@ angular.module('tastecodingApp', ['ngCookies'])
 	};
 
 	lc.syncEditorEvent = function(){
+		clearTimeout(lc.editorEventTimeout);
 		var now = lc.getTime();
 		var eventsUntilNow = $.grep(lc.editorEvents, function(e){
 			return e.time <= now;
 		});
 		lc.editor.setValue("");
 		for(editorEvent of eventsUntilNow){
-			applyEditorEvent(editorEvent);
+			if(editorEvent.type != "runit"){
+				lc.applyEditorEvent(editorEvent);
+			}
 		}
 	};
 
+	lc.slideTimeout = {};
+
 	////////////////////////////////SLIDE CONTROL////////////////////////////////
-	lc.playSlide = function(){
+	lc.playSlide = function(idx){
+		if(!idx){
+			var now = lc.getTime();
+			idx = lc.getNextTimedObjectIndex(lc.slides, now)-1;
+		}
+		else{
+			lc.selectedSlide = lc.slides[idx];
+			$scope.$apply();
+		}
+		if(idx < lc.slides.length-1){
+			now = lc.getTime();
+				lc.slideTimeout = setTimeout(
+					lc.playSlide,
+					lc.slides[idx+1].time - now,
+					idx+1
+				);
+		}
 	};
 
 	lc.syncSlide = function(){
+		clearTimeout(lc.slideTimeout);
+		var now = lc.getTime();
+		var slideToSelect = {};
+		for(slide of lc.slides){
+			if(slide.time > now)
+				break;
+			slideToSelect = slide;
+		}
+		lc.selectedSlide = slideToSelect;
+	};
+
+	lc.selectSlide = function(slide){
+		lc.selectedSlide = slide;
+		lc.goTo(slide.time);
 	};
 
 	////////////////////////////////AUDIO CONTROL////////////////////////////////
 	lc.playAudio = function(){
+		lc.audio.play();
+	};
+
+	lc.pauseAudio = function(){
+		lc.audio.pause();
 	};
 
 	lc.getTime = function(){
-		//return lc.audio.getTime()*1000;
+		return lc.audio.currentTime*1000;
 	};
 
 	//////////////////////////////LECTURE CONTROL////////////////////////////////
@@ -177,17 +232,31 @@ angular.module('tastecodingApp', ['ngCookies'])
 	lc.play = function(){
 		lc.isPlaying = true;
 		//TODO: play or resume audio
+		lc.playAudio();
 		//TODO: play slide
+		lc.playSlide();
 		//TODO: play editorEvents
+		lc.playEditorEvent();
 	};
 
 	lc.pause = function(){
+		lc.isPlaying = false;
+		lc.pauseAudio();
+		clearTimeout(lc.slideTimeout);
+		clearTimeout(lc.editorEventTimeout);
 	};
 
 	lc.goTo = function(time_t){
 		//TODO: Set audio time
+		lc.audio.currentTime = time_t/1000;
 		//TODO: sync editor events
+		lc.syncEditorEvent();
 		//TODO: sync slide
+		lc.syncSlide();
+		if(lc.isPlaying)
+			lc.play();
+		else
+			lc.pause();
 	};
 
 	///////////////////////////////RECORD MODE//////////////////////////////////
@@ -222,10 +291,13 @@ angular.module('tastecodingApp', ['ngCookies'])
 	//REMOVE
 	startRecording = lc.startRecording;
 
+
 	lc.stopRecording = function(){
 		lc.editor.on("change", function(e){});
 		lc.selection.on("changeSelection", function(){});
 	};
+
+	stopRecording = lc.stopRecording;
 
 	//////////////////////////////REFERENCE CONTROL/////////////////////////////
 	lc.showReference = function(){
@@ -264,6 +336,9 @@ angular.module('tastecodingApp', ['ngCookies'])
 
 	/////////////////////////////ON WEBSITE LOAD////////////////////////////////
 	lc.initACE();
+
+	lc.audio = document.getElementById("audioPlayer");
+	audio = lc.audio;
 
 	$http.get('data/lecture-list.json')
 	.then(function(res){
@@ -306,6 +381,14 @@ angular.module('tastecodingApp', ['ngCookies'])
 		},
 	});
 
+	lc.reference.commands.addCommand({
+		name: "run",
+		bindKey: {win: "Ctrl-B", mac: "Command-B"},
+		exec: function(editor) {
+			lc.runit();
+		},
+	});
+
 	Mousetrap.bind(['command+,', 'ctrl+,'], function(e){
 		lc.selectPrevReference();
 		$scope.$apply();
@@ -320,12 +403,30 @@ angular.module('tastecodingApp', ['ngCookies'])
 		},
 	});
 
+	lc.reference.commands.addCommand({
+		name: "selectPrevReference",
+		bindKey: {win: "Ctrl-,", mac: "Command-,"},
+		exec: function(editor) {
+			lc.selectPrevReference();
+			$scope.$apply();
+		},
+	});
+
 	Mousetrap.bind(['command+.', 'ctrl+.'], function(e){
 		lc.selectNextReference();
 		$scope.$apply();
 	});
 
 	lc.editor.commands.addCommand({
+		name: "selectNextReference",
+		bindKey: {win: "Ctrl-.", mac: "Command-."},
+		exec: function(editor) {
+			lc.selectNextReference();
+			$scope.$apply();
+		},
+	});
+
+	lc.reference.commands.addCommand({
 		name: "selectNextReference",
 		bindKey: {win: "Ctrl-.", mac: "Command-."},
 		exec: function(editor) {

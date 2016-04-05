@@ -73,10 +73,10 @@
                 <div id="right-wrapper">
                     <div id="slide-wrapper">
                         <ul class="tabs noselect">
-                            <li class="tab">강의</li> ▶ &#10074;&#10074;
+                            <li class="tab">강의</li> <span ng-click="lc.play()">▶</span> <span ng-click="lc.pause()">&#10074;&#10074;</span><audio id="audioPlayer" ng-src="{{lc.selectedLecture.audioURL}}"></audio>
                         </ul>
                         <ul id="slide" class="noselect">
-                            <li class="slide-item" ng-repeat="slide in lc.slides" ng-click="lc.selectSlide(slide)" ng-class="{active:slide==lc.activeSlide}">{{ slide.text }}</li>
+                            <li class="slide-item" ng-repeat="slide in lc.slides" ng-click="lc.selectSlide(slide)" ng-class="{active:slide==lc.selectedSlide}"><pre>{{ slide.text }}</pre></li>
                         </ul>
 
                     </div>
